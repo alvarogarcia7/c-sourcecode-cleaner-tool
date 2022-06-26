@@ -19,10 +19,9 @@ dist:
 TMP_FOLDER := /tmp
 
 test: typecheck
-	@ls -d test/fake_libc_include/
+	@ls -d spec/fake_libc_include/
 	date
-	#https://apple.stackexchange.com/questions/49042/how-do-i-make-find-fail-if-exec-fails
-	pytest .
+	mamba
 	date
 .PHONY: test
 

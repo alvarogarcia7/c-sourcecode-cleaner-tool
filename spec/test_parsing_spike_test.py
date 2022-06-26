@@ -33,9 +33,10 @@ def parse_ast_of(filename: str) -> Optional[Any]:
     """ Simply use the c_generator module to emit a parsed AST.
     """
     path = os.path.dirname(os.path.realpath(__file__))
-    ast: Any | None = parse_file(f"{path}/{filename}", use_cpp=True,
-                     cpp_path='gcc',
-                     cpp_args=['-E', rf'-I{path}/fake_libc_include'])
+    path2 = f"{path}/{filename}"
+    ast: Any | None = parse_file(path2, use_cpp=True,
+                                 cpp_path='gcc',
+                                 cpp_args=['-E', rf'-I{path}/fake_libc_include'])
     return ast
 
 
