@@ -19,7 +19,7 @@ dist:
 TMP_FOLDER := /tmp
 
 test: typecheck
-	@ls -d spec/fake_libc_include/
+	@ls -d src/fake_libc_include/
 	date
 	mamba
 	date

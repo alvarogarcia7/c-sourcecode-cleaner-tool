@@ -1,19 +1,21 @@
+import os
 from pprint import pprint
 
 from expects import expect, equal, have_len
 from mamba import description, it, before
 
-from spec.test_parsing_spike_test import parse_ast_of, MyVisitor, DuplicatedLines
+from src.duplicated_lines_finder import DuplicatedLinesFinder
+from src.duplicated_lines_repository import DuplicatedLinesRepository
+from src.ast_generator import MyVisitor, parse_ast_of
 
 with description('Repeated lines finder') as self:
     with description('in sample 1'):
         with before.each:
-            self.ast = parse_ast_of('sample_declarations_1.c')
-            self.generator = MyVisitor(DuplicatedLines())
+            path = os.path.dirname(os.path.realpath(__file__)) + '/sample_declarations_1.c'
+            self.ast = parse_ast_of(path)
 
         with it('finds repeated lines in the sample 1'):
-            self.generator.visit(self.ast)
-            repeated_lines_list = self.generator.duplicated_lines.list
+            repeated_lines_list = DuplicatedLinesFinder().find(self.ast)
             print("")
             pprint(repeated_lines_list)
             variable_names = [x['variable']['name'] for x in repeated_lines_list]
