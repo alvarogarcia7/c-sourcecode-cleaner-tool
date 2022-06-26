@@ -20,3 +20,4 @@ log.txt
 # Distributables
 dist/
 
+fake_libc_include/
