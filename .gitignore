@@ -1,0 +1,22 @@
+# IDEA
+.idea/
+
+# VS Code
+.vscode/
+
+# Python
+__pycache__/
+.pytest_cache/
+custom_mixcolumns_logs.txt
+*.pyc
+venv/
+
+# Mac
+.DS_Store
+._*
+
+log.txt
+
+# Distributables
+dist/
+
