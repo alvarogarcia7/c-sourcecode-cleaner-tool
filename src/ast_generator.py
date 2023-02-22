@@ -24,6 +24,29 @@ class MyVisitor(c_ast.NodeVisitor):
             pass
 
 
+class MyVisitor2(c_ast.NodeVisitor):
+
+    def __init__(self, duplicated_lines: DuplicatedLinesRepository) -> None:
+        super().__init__()
+        self.duplicated_lines = duplicated_lines
+        self._parallel_ast: list[Any] = []
+
+    def visit(self, node):
+        self._parallel_ast.append(node)
+        return node
+
+    # def visit(self, node):
+    #     print('%s at %s' % (node.decl.name, node.decl.coord))
+    def visit_Decl(self, node: Any) -> None:
+        try:
+            v = node.children()[1][1].exprs
+            self.duplicated_lines.register_assignment_and_maybe_remove_it(node, v)
+        except IndexError:
+            pass
+        except AttributeError:
+            pass
+
+
 def parse_ast_of(filename: str) -> Optional[Any]:
     """ Simply use the c_generator module to emit a parsed AST.
     """
